@@ -39,10 +39,14 @@ module Service
         :body_object => new_permission,
         :parameters => { 'fileId' => result.data.id }
       )
-      {link:result.data.webContentLink, thumbnail: get_thumbnail(file_name), title: result.data.title}
+      {link:result.data.webContentLink, thumbnail: get_thumbnail(file_name), title: result.data.title, basename: remove_extension(result.data.title)}
     end
 
     private
+    def remove_extension file_name
+      File.basename(file_name, File.extname(file_name))
+    end
+
     def get_thumbnail file_name
       is_audio = MIME::Types.of(file_name).first.media_type == 'audio'
 
