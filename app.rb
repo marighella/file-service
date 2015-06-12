@@ -6,6 +6,11 @@ require 'json'
 require_relative 'lib/flickr.rb'
 require_relative 'lib/user.rb'
 require_relative 'lib/google_drive.rb'
+use Rack::MethodOverride
+
+HTTP_STATUS_OK = 200
+HTTP_STATUS_OK_NO_CONTENT = 204
+HTTP_STATUS_BAD_REQUEST = 400
 
 before do
   headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
@@ -19,11 +24,24 @@ options "*" do
   response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
   halt HTTP_STATUS_OK
 end
+
 get "/upload" do
   require 'haml'
   haml :upload
 end
 
+delete '/upload' do
+  organization = params['organization'] || ''
+  url = params['url'] || ''
+  user  = User.new(organization)
+  config = user.enviromment_config
+
+  service = Service::GoogleDrive.new(config)
+
+  service.delete( url )
+
+  halt HTTP_STATUS_OK_NO_CONTENT
+end
 
 post "/upload" do
   organization = params['organization'] || ''

@@ -12,6 +12,12 @@ module Service
       @drive = @api.discovered_api('drive', 'v2')
     end
 
+    def delete url
+      id = extract_id_from_url(url)
+      result = @api.execute(:api_method => @drive.files.delete,:parameters => {'fileId'=>id})
+      result.status
+    end
+
     def upload(file_path, file_name)
       content_type = get_content_type(file_name)
 
@@ -50,6 +56,10 @@ module Service
     end
 
     private
+    def extract_id_from_url url
+      url.match(/id=([^&]+)/).captures.first
+    end
+
     def remove_extension file_name
       File.basename(file_name, File.extname(file_name))
     end
