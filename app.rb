@@ -48,13 +48,8 @@ post "/upload" do
   user  = User.new(organization)
   config = user.enviromment_config
 
-  path = Dir.mktmpdir('upload')
   file_name = params['myfile'][:filename]
-  file_path = "#{path}/#{file_name}"
-
-  File.open(file_path, "w") do |f|
-    f.write(params['myfile'][:tempfile].read)
-  end
+  file_path = params['myfile'][:tempfile]
 
   is_image = (MIME::Types.of(file_name).first.media_type == 'image')
   service =  is_image ? Service::Flickr.new(config) : Service::GoogleDrive.new(config)
