@@ -21,7 +21,7 @@ module Service
          medium: medium_url, small: small_url, title: file_name }
 
         links.inject({}) do |hash, (key,value)|
-          hash[key] = value.gsub('https://','http://')
+          hash[key] = value.gsub('https://','//')
           hash
         end
       rescue FlickRaw::FailedResponse => e
