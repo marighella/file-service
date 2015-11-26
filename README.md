@@ -13,3 +13,11 @@ App para fazer upload de imagem e vários serviços
 
 
 * Aconselhamos o uso do foreman para testes locais
+
+* install stuffs
+
+bundle install
+
+* Run tests
+
+bundle exec rake test
