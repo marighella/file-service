@@ -13,6 +13,8 @@ class Service::FlickrTest < ActiveSupport::TestCase
     info.stubs(:farm).returns('')
     info.stubs(:server).returns('')
     info.stubs(:secret).returns('')
+    info.stubs(:originalsecret).returns('')
+    info.stubs(:originalformat).returns('')
 
     api_photos = mock()
     api_photos.stubs( :getInfo ).returns( info )
