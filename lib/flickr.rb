@@ -13,11 +13,12 @@ module Service
         info = @api.photos.getInfo(:photo_id => photo_id)
 
         large_url = FlickRaw.url_b(info)
+        original_url = FlickRaw.url_o(info)
         thumbnail_url = FlickRaw.url_t(info)
         medium_url = FlickRaw.url_z(info)
         small_url = FlickRaw.url_n(info)
 
-        links = {link: large_url, thumbnail: thumbnail_url,
+        links = {link: large_url, original: original_url, thumbnail: thumbnail_url,
          medium: medium_url, small: small_url, title: file_name }
 
         links.inject({}) do |hash, (key,value)|
