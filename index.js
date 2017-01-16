@@ -1,1 +1,3 @@
-require('./lib/server').start();
+import serverStart from './lib/server'
+
+serverStart()

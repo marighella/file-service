@@ -1,9 +1,9 @@
 'use strict';
 
-var request = require('supertest'),
-    server  = require('../lib/server')
+import supertest from 'supertest'
+import serverStart from '../lib/server'
 
-const fails = function(done){
+const fails = (done) => {
   return (err, res) => {
     if (err) {
       done.fail(err)
@@ -13,20 +13,20 @@ const fails = function(done){
   }
 }
 
-describe('FileService API', ()=>{
+describe('FileService API', () => {
 
   var app
 
-  beforeEach(()=>{
-    app = server.start(6666)
+  beforeEach(() => {
+    app = serverStart(6666)
   })
 
-  afterEach(()=>{
+  afterEach(() => {
     app.close();
   })
 
   it('should be alive', (done)=>{
-    request(app)
+    supertest(app)
       .get('/honey')
       .expect(200)
       .end(fails(done))
@@ -43,10 +43,9 @@ describe('FileService API', ()=>{
       title: "image.png"
     }
 
-    request(app)
+    supertest(app)
       .post('/upload')
       .attach('myfile', 'spec/image.png')
       .expect(201, resultExpected, fails(done))
   })
-
 })

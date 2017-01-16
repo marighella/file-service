@@ -4,7 +4,8 @@
   "description": "A small file service for Marighella",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "nodemon spec/run.js --exec babel-node --presets es2015,stage-2",
+    "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,16 @@
   },
   "homepage": "https://github.com/marighella/file-service#readme",
   "dependencies": {
-    "restify": "^4.3.0",
+    "flickrapi": "^0.6.0",
+    "restify": "^4.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-register": "^6.18.0",
+    "jasmine": "^2.5.3",
+    "nodemon": "^1.11.0",
     "supertest": "^2.0.1"
   }
 }
