@@ -19,15 +19,28 @@ describe('FileService API', () => {
     app.close();
   })
 
-  it('should be alive', (done)=>{
+  it('should be alive', (done) => {
     supertest(app)
       .get('/honey')
       .expect(200)
       .end(fails(done))
   })
 
-  it('should return a json file with flickr links', (done) => {
+  it('Should not accept GET requests', (done) => {
+    supertest(app)
+      .get('/upload')
+      .expect(405)
+      .end(fails(done))
+  })
 
+  it('Should complain if no file is attached', (done) => {
+    supertest(app)
+      .post('/upload')
+      .expect(400)
+      .end(fails(done))
+  })
+
+  it('Should return JSON with flickr links', (done) => {
     const resultExpected = {
       link: "//farm1.staticflickr.com/648/32332461705_bd3eeddd05_b.jpg",
       original: "//farm1.staticflickr.com/648/32332461705_fd5e61f0d7_o.png",
