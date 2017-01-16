@@ -4,13 +4,7 @@ import supertest from 'supertest'
 import serverStart from '../lib/server'
 
 const fails = (done) => {
-  return (err, res) => {
-    if (err) {
-      done.fail(err)
-    } else {
-      done()
-    }
-  }
+  return (err, res) => err ? done.fail(err) : done()
 }
 
 describe('FileService API', () => {
