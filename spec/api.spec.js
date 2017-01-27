@@ -1,7 +1,7 @@
 'use strict';
 
 import supertest from 'supertest'
-import serverStart from '../lib/server'
+import startServer from '../lib/server'
 
 const fails = (done) => {
   return (err, res) => err ? done.fail(err) : done()
@@ -12,16 +12,16 @@ describe('FileService API', () => {
   var app
 
   beforeEach(() => {
-    app = serverStart(6666)
+    app = startServer(6666)
   })
 
   afterEach(() => {
     app.close();
   })
-
+  
   it('should be alive', (done) => {
     supertest(app)
-      .get('/honey')
+      .get('/')
       .expect(200)
       .end(fails(done))
   })
@@ -52,7 +52,8 @@ describe('FileService API', () => {
 
     supertest(app)
       .post('/upload')
-      .attach('myfile', 'spec/image.png')
+      .attach('image', 'spec/image.png')
       .expect(201, resultExpected, fails(done))
   })
+
 })
