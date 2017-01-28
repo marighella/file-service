@@ -1,0 +1,6 @@
+if !user
+  p Welcome! Please&nbsp;
+    a(href="/login") log in
+else
+  p Hello #{user.displayName}. View your&nbsp;
+    a(href="/profile") profile

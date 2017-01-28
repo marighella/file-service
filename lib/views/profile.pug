@@ -1,0 +1,5 @@
+ul
+  li ID: #{user.id}
+  li Name: #{user.displayName}
+  if user.emails
+    li Email: #{user.emails[0].value}
